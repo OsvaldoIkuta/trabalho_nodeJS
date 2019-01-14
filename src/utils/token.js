@@ -13,7 +13,9 @@ const SECRET_KEY = 'aqui vai a chave super secreta!';
  * @param {next} next
  */
 function authenticationMiddleware(request, response, next) {
-    const { cookies: { token } } = request;
+    const token = request.body.token || request.headers["x-access-token"] || request.cookies["x-access-token"];
+    console.log(token)
+    //const { cookies: { token } } = request;
     try {
         const payload = jwt.verify(token, SECRET_KEY);
         request.usuarioLogado = payload;

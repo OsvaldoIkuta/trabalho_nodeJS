@@ -73,7 +73,7 @@ function login(request, response, next) {
 
     const {email, senha} = body
 
-    const senhaCripto = bcrypt.hashSync(senha, bcrypt.genSaltSync(10))
+    //const senhaCripto = bcrypt.hashSync(senha, bcrypt.genSaltSync(10))
 
     Usuario.findOne({
         where:{
@@ -83,9 +83,18 @@ function login(request, response, next) {
     })
         .then(usuario=>{
             if(usuario !== null){
-
+                /*console.log(usuario.dataValues);
                 const token = generateToken(usuario)
-                response.status(200).cookie('token',token).send('Sucesso ao logar')
+                console.log(token);
+
+                response.status(200).cookie('token',token).send('Sucesso ao logar')*/
+                const token = generateToken(usuario)
+                response.json({
+                    sucess: true,
+                    err: null,
+                    token: token,
+                    id: usuario.id
+                });
                 
             }else{
 

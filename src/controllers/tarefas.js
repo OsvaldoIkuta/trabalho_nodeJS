@@ -6,12 +6,12 @@ const { Tarefa } = require('../models');
 function cadastro(request, response, next) {
     const {body, usuarioLogado } = request
 
-    const {titulo, descricao} = body
+    const {titulo, descricao, concluida} = body
 
     const {id} = usuarioLogado
 
     Tarefa.create({
-        titulo, descricao, usuarioId:id
+        titulo, descricao, concluida, usuarioId:id
     })
         .then( tarefa => {
             response.status(201).json(tarefa)
@@ -67,7 +67,7 @@ function buscaPorId(request, response, next) {
 function edicao(request, response, next) {
     const {params, body } = request
     const { tarefaId } = params
-    const { titulo, descricao } = body
+    const { titulo, descricao, concluida } = body
 
     Tarefa.findById(tarefaId)
         .then( tarefa => {
@@ -75,7 +75,7 @@ function edicao(request, response, next) {
                 response.status(404).send('Tarefa não encontrada')
             }else{
                 return tarefa.update({
-                    titulo, descricao
+                    titulo, descricao, concluida
                 })
                     .then(()=>{
                         response.status(200).json(tarefa)

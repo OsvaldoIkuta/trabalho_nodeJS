@@ -37,7 +37,7 @@ const validateBody = {
 }
 
 //Listar todas as tarefas
-router.get('/', authenticationMiddleware, controller.listagem);
+router.get('/', controller.listagem);
 
 //Cadastrar uma nova tarefa
 router.post('/', authenticationMiddleware, validateSchema(validateBody), controller.cadastro);
