@@ -5,12 +5,12 @@ const { generateToken } = require('../utils/token');
 
 function cadastro(request, response, next) {
     const { body } = request
-    const { nome, email, senha } = body
+    const { nome, email, cpf, nascimento, senha } = body
 
     const senhaCripto = bcrypt.hashSync(senha, bcrypt.genSaltSync(10))
 
     Usuario.create({
-        nome, email, senha
+        nome, email, cpf, nascimento, senha
     })
         .then( usuario => {
             response.status(201).json(usuario)
@@ -46,7 +46,7 @@ function edicao(request, response, next) {
     const  { usuarioId } = params;
 
 
-    const { nome, email, senha } = body;
+    const { nome, email, cpf, nascimento, senha } = body;
 
     Usuario.findById(usuarioId)
         .then(usuario => {
@@ -56,7 +56,7 @@ function edicao(request, response, next) {
                 //response.status(200).json(usuario);
                 //const senhaCripto = bcrypt.hashSync(senha, bcrypt.genSaltSync(10))
                 return usuario.update({
-                    nome, email, senha
+                    nome, email, cpf, nascimento, senha
                 }) .then(() => {
                     response.status(200).json(usuario);
                 })

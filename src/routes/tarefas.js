@@ -52,9 +52,9 @@ router.put('/:tarefaId', authenticationMiddleware, validateSchema(validateBody),
 router.delete('/:tarefaId', authenticationMiddleware, controller.remocao);
 
 //Marcar uma tarefa como concluída
-router.put('/:tarefaId/concluida', authenticationMiddleware, controller.marcarConcluida);
+router.put('/:tarefaId/concluida', controller.marcarConcluida);
 
 //Desmarcar uma tarefa concluída
-router.delete('/:tarefaId/concluida', authenticationMiddleware, controller.desmarcarConcluida);
+router.delete('/:tarefaId/concluida', controller.desmarcarConcluida);
 
 module.exports = router;

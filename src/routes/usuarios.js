@@ -4,7 +4,7 @@ const router = express.Router();
 const validateSchema = require('./validateSchema');
 const controller = require('../controllers/usuarios');
 const { authenticationMiddleware } = require('../utils/token');
-
+const { isCPF, isDate } = require('../utils/customValidators');
 /*******
  * TODO: Definição das rotas do CRUD de Usuários e Login.
  * Exemplo:
@@ -32,6 +32,24 @@ const validateBody = {
         isString: true,
         notEmpty: true,
         errorMessage: "Email inválido, por favor informe novamente!"
+    },
+    cpf: {
+        in: "body",
+        isString: true,
+        notEmpty: true,
+        custom: {
+            options: (value => isCPF(value))
+        },
+        errorMessage: "CPF inválido, por favor informe novamente!"
+    },
+    nascimento: {
+        in: "body",
+        isString: true,
+        notEmpty: true,
+        custom: {
+            options: (value => isDate(value, "YYYY-MM-DD"))
+        },
+        errorMessage: "Data de nascimento inválida, por favor informe novamente!"
     },
     senha: {
         in: "body",

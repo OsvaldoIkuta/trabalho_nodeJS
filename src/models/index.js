@@ -29,6 +29,14 @@ const Usuario = sequelize.define('usuario', {
         type: Sequelize.STRING(200),
         unique:true,
     },
+    cpf: {
+        type: Sequelize.STRING(14),
+        allowNull: false,
+        unique: true
+    },
+    nascimento: {
+        type: Sequelize.DATEONLY()
+    },
     senha: {
         type: Sequelize.STRING(200),
         allowNull: false,
